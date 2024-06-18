@@ -30,9 +30,9 @@ adminRoute.get("/users", authMiddleware, adminController.getUsersData);
 adminRoute.post("/users/action", authMiddleware, adminController.userAction);
 adminRoute.get("/providers", authMiddleware, adminController.getProviderData);
 adminRoute.get(
-  "/providers/action/:id",
+  "/providers/action/:id",    
   authMiddleware,
-  adminController.providerAction
+  adminController.providerAction     
 );
 
 adminRoute.get(
