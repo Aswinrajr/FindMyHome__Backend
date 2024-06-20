@@ -47,14 +47,12 @@ userRoute.post("/fetchdata", authMiddleware, userController.getCombinedData);
 userRoute.post("/bookroom/:id", authMiddleware, userController.bookRoom);
 userRoute.post("/bookrooms/:id", authMiddleware, userController.bookRooms);
 userRoute.post("/placeorder", authMiddleware, userController.placeOrder);
-userRoute.post("/cancelbooking/:bookingId",authMiddleware,userController.cancelBooking);
 userRoute.post("/walletpayment", authMiddleware, userController.walletPayment);
 userRoute.post("/getuserdata", authMiddleware, userController.getUserData);
 userRoute.post( "/getuserbookings",authMiddleware,userController.getAllBookingData);
 userRoute.post("/userrequested",authMiddleware,userController.userProviderRegistration);
 userRoute.post("/savetocart", authMiddleware, userController.saveToCart);
 userRoute.post("/userreview/:roomId",authMiddleware,userController.userReview);
-userRoute.post("/updaterooms/:id",authMiddleware,userController.updateRooms);
 
 //razorpay
 userRoute.post("/verifybooking/:roomId",authMiddleware, userController.verifybooking);
@@ -63,6 +61,8 @@ userRoute.post("/confirmbooking/:id",authMiddleware, userController.confirmRazor
 
 userRoute.put("/changepassword",authMiddleware,userController.userChangePassword);
 userRoute.put("/updateuserdata",authMiddleware,upload.single("image"),userController.updateUserData);
+userRoute.put("/cancelbooking/:bookingId",authMiddleware,userController.cancelBooking);
+userRoute.put("/updaterooms/:id",authMiddleware,userController.updateRooms);
 
 
 //Chats

@@ -1057,7 +1057,7 @@ const userChangePassword = async (req, res) => {
 
 const getUserData = async (req, res) => {
   try {
-    console.log("Welcome to get user data", req.body);
+    console.log("Welcome to get user data");
 
     const { userToken, role } = req.decoded;
     console.log("userToken", userToken, "role", role);
