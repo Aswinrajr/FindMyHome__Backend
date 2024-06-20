@@ -80,12 +80,87 @@ const providerLogin = async (req, res) => {
   }
 };
 
+
+const reqLoginOtp = async (req, res) => {
+  try {
+    console.log("Welcome to rel orp login", req.body);
+    const { mobile } = req.body;
+    const OTP = generate_OTP();
+    req.app.locals.sOTP = OTP;
+    req.app.locals.smobile = mobile;
+    console.log("OTP: ", OTP, "Mobile: ", mobile);
+    console.log(
+      "sOTP: ",
+      req.app.locals.sOTP,
+      "sMobile: ",
+      req.app.locals.smobile
+    );
+    console.log(OTP);
+
+    const message = `Welcome to find My Home Your OTP is ${OTP} `;
+    const mobileNumber = mobile;
+    const smsData = {
+      message: message,
+      language: "english",
+      route: "q",
+      numbers: mobileNumber,
+    };
+    await axios
+      .post("https://www.fast2sms.com/dev/bulkV2", smsData, {
+        headers: {
+          Authorization: fast_sms_api_key,
+        },
+      })
+      .then((response) => {
+        console.log("otp send", response.data);
+        res.status(200).json({ msg: "OTP Sent Successfully" });
+      })
+      .catch((error) => {
+        console.log("Error in sending sms", error);
+        res
+          .status(500)
+          .json({ error: "Failed to send OTP. Please try again later." });
+      });
+  } catch (err) {
+    console.log("Error in Req for otp login", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const confirmOtp = async (req, res) => {
+  try {
+    console.log("Welcome to confirm otp", req.body);
+    const OTP = req.body.otp;
+    const mobile = req.body.mobile;
+    console.log("Mobile", mobile, "Otp", OTP);
+
+    if (req.app.locals.sOTP === OTP) {
+      console.log("OTP VERIFIED");
+      res.status(200).json({ msg: "OTP verified successfully" });
+    } else {
+      console.log("Otp incorrect");
+      res.status(401).json({ msg: "Incorrect OTP" });
+    }
+  } catch (err) {
+    console.log("Error in confirm otp", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+
+
+
+
+
+
+
 const providerSignUp = async (req, res) => {
   try {
     const { residenceName, email, mobile, password, confirmPassword } =
       req.body;
     console.log(residenceName, email, mobile, password, confirmPassword);
-    outputNumber = mobile.replace(/\D/g, "").slice(2);
+    
 
     const existingProvider = await Provider.findOne({ providerEmail: email });
 
@@ -102,7 +177,7 @@ const providerSignUp = async (req, res) => {
         const provider = new Provider({
           providerName: residenceName,
           providerEmail: email,
-          providerMobile: outputNumber,
+          providerMobile: mobile,
           providerPassword: hashedPassword,
         });
 
@@ -680,4 +755,6 @@ module.exports = {
   singleBookings,
   providerDashboard,
   providerChartData,
+  reqLoginOtp,
+  confirmOtp
 };

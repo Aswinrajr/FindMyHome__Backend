@@ -25,6 +25,8 @@ providerRoute.post("/login", providerController.providerLogin);
 providerRoute.post("/signup", providerController.providerSignUp);
 providerRoute.post("/reqotp", providerController.providerReqOtp);
 providerRoute.post("/verifyotp", providerController.providerVerifyOtp);
+providerRoute.post("/reqloginotp", providerController.reqLoginOtp);
+providerRoute.post("/confirmotp", providerController.confirmOtp);
 
 
 providerRoute.get("/getprovider",authMiddleware,providerController.getProviderData);
