@@ -17,60 +17,71 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-userRoute.get("/validateuser", authMiddleware, userController.validateUser);
-userRoute.get("/wallettransactions",authMiddleware,userController.walletTransactions);
-userRoute.get("/room", authMiddleware, userController.getUserRoomData);
-userRoute.get("/editrooms/:id", authMiddleware, userController.roomDataId);
-userRoute.get("/roompreview/:id", authMiddleware, userController.previewRoom);
-userRoute.get("/getcartdata", authMiddleware, userController.getCartData);
-userRoute.get("/getuserdashboard",authMiddleware,userController.getUserDashboard);
-userRoute.get("/getrecepientdata/:recId", chatController.recipientData);
-userRoute.get("/getsaleschart/:period",authMiddleware,userController.getSalesChart);
-userRoute.get("/getuserwallet",authMiddleware,userController.userWalletBalance);
-userRoute.get("/getallreview/:roomId",authMiddleware,userController.getAllReviews);
-userRoute.get("/getfilterdata/:roomId",authMiddleware,userController.getBookingRoomData);
-
-//Pagination
-userRoute.post("/getfilterdata",authMiddleware,userController.getFilteredData);
 
 
+userRoute.post("/login", userController.userLogin);
 userRoute.post("/reqloginotp", userController.reqLoginOtp);
 userRoute.post("/confirmotp", userController.confirmOtp);
-userRoute.post("/signup", userController.userRegistration);
-userRoute.post("/login", userController.userLogin);
 userRoute.post("/reqotp", userController.reqForOtp);
 userRoute.post("/verifyotp", userController.verifyOtp);
-userRoute.post("/searchrooms", userController.searchRooms);
+userRoute.post("/signup", userController.userRegistration);
 
-userRoute.post("/addroom",authMiddleware,upload.array("images", 5),userController.userAddRooms);
+
+userRoute.get("/validateuser", authMiddleware, userController.validateUser);
+
+userRoute.post("/searchrooms", userController.searchRooms);
+userRoute.post("/getfilterdata",authMiddleware,userController.getFilteredData);
+
+userRoute.get("/roompreview/:id", authMiddleware, userController.previewRoom);
+userRoute.get("/getallreview/:roomId",authMiddleware,userController.getAllReviews);
+
 userRoute.post("/fetchdata", authMiddleware, userController.getCombinedData);
 userRoute.post("/bookroom/:id", authMiddleware, userController.bookRoom);
 userRoute.post("/bookrooms/:id", authMiddleware, userController.bookRooms);
 userRoute.post("/placeorder", authMiddleware, userController.placeOrder);
 userRoute.post("/walletpayment", authMiddleware, userController.walletPayment);
-userRoute.post("/getuserdata", authMiddleware, userController.getUserData);
-userRoute.post( "/getuserbookings",authMiddleware,userController.getAllBookingData);
-userRoute.post("/userrequested",authMiddleware,userController.userProviderRegistration);
-userRoute.post("/savetocart", authMiddleware, userController.saveToCart);
-userRoute.post("/userreview/:roomId",authMiddleware,userController.userReview);
-
-//razorpay
 userRoute.post("/verifybooking/:roomId",authMiddleware, userController.verifybooking);
 userRoute.post("/confirmbooking/:id",authMiddleware, userController.confirmRazorpayBooking);
 
 
+
+userRoute.post("/savetocart", authMiddleware, userController.saveToCart);
+userRoute.get("/getcartdata", authMiddleware, userController.getCartData);
+
+
+userRoute.post("/userrequested",authMiddleware,userController.userProviderRegistration);
+userRoute.post("/getuserdata", authMiddleware, userController.getUserData);
+
+userRoute.get("/getuserdashboard",authMiddleware,userController.getUserDashboard);
+userRoute.get("/getsaleschart/:period",authMiddleware,userController.getSalesChart);
+
+userRoute.get("/room", authMiddleware, userController.getUserRoomData);
+userRoute.post("/addroom",authMiddleware,upload.array("images", 5),userController.userAddRooms);
+userRoute.get("/editrooms/:id", authMiddleware, userController.roomDataId);
+userRoute.put("/updaterooms/:id",authMiddleware,userController.updateRooms);
+
+
+userRoute.get("/getuserwallet",authMiddleware,userController.userWalletBalance);
+userRoute.get("/wallettransactions",authMiddleware,userController.walletTransactions);
+
 userRoute.put("/changepassword",authMiddleware,userController.userChangePassword);
 userRoute.put("/updateuserdata",authMiddleware,upload.single("image"),userController.updateUserData);
+
+
+userRoute.get("/getfilterdata/:roomId",authMiddleware,userController.getBookingRoomData);
+
+
+
+userRoute.post( "/getuserbookings",authMiddleware,userController.getAllBookingData);
+userRoute.post("/userreview/:roomId",authMiddleware,userController.userReview);
 userRoute.put("/cancelbooking/:bookingId",authMiddleware,userController.cancelBooking);
-userRoute.put("/updaterooms/:id",authMiddleware,userController.updateRooms);
 
 
 //Chats
 userRoute.post("/chat", authMiddleware ,chatController.createChat);
+userRoute.get("/getrecepientdata/:recId", chatController.recipientData);
 userRoute.get("/chat/:userId",authMiddleware, chatController.userChat);
 userRoute.get("/find/:firstId/:secondId",authMiddleware, chatController.findChat);
-
-
 
 //Message
 userRoute.post("/message",chatController.sendMessage);
