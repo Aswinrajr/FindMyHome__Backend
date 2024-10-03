@@ -94,7 +94,7 @@ const adminVerifyLogin = async (req, res) => {
         res.status(401).json({ msg: "Incorrect password" });
       }
     } else {
-      console.log("Admin not found");
+      console.log("Admin not founds");
       res.status(404).json({ msg: "Admin not found" });
     }
   } catch (err) {
@@ -104,7 +104,7 @@ const adminVerifyLogin = async (req, res) => {
 };
 const reqForOtp = async (req, res) => {
   try {
-    console.log("Welcome to otp");
+    console.log("Welcome to otps");
     const { mobile } = req.body;
     console.log(mobile);
 
