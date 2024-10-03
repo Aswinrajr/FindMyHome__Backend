@@ -120,7 +120,7 @@ const reqForOtp = async (req, res) => {
         "sOTP: ",
         req.app.locals.sOTP,
         "sMobile: ",
-        req.app.locals.smobile
+        req.app.locals.smobile 
       );
       console.log(OTP);
       console.log(fast_sms_api_key);
@@ -129,7 +129,7 @@ const reqForOtp = async (req, res) => {
       const mobileNumber = mobile;
 
       const smsData = {
-        // sender_id:'FSTSMS',
+      
         message: message,
         language: "english",
         route: "q",
@@ -161,7 +161,7 @@ const reqForOtp = async (req, res) => {
   }
 };
 
-//Verify otp
+
 const verifyOtp = async (req, res) => {
   try {
     console.log("Admin find");
