@@ -15,6 +15,11 @@ const PORT = process.env.PORT || 1997;
 
 app.set("trust proxy", true);
 
+app.use((req, res, next) => {
+  console.log(`Request Origin: ${req.headers.origin}`);
+  next();
+});
+
 app.use(logIp);
 
 dataBase();
@@ -35,6 +40,7 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error(`CORS error for origin: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
@@ -53,5 +59,5 @@ app.use("/", userRoute);
 // app.use("/chat", chatRoute);
 
 app.listen(PORT, () => {
-  console.log(`Application is running on port address: ${PORT}`);
+  console.log(`Application is running on port: ${PORT}`);
 });
