@@ -24,7 +24,9 @@ app.use(express.json());
 
 const allowedOrigins = [
   "https://www.findmyhomestay.online",
+  "https://findmyhomestay.online",
   "http://localhost:5173",
+  "https://stepifyeshop.shop"
 ];
 
 const corsOptions = {
