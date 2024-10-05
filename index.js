@@ -27,6 +27,7 @@ const allowedOrigins = [
   "https://findmyhomestay.online",
   "http://localhost:5173",
   "https://stepifyeshop.shop"
+  "https://find-my-home-frontend-5ak9.vercel.app"
 ];
 
 const corsOptions = {
